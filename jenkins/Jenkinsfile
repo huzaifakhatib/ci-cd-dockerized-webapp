@@ -8,8 +8,8 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'docker tag mywebapp:latest <your-dockerhub-username>/mywebapp:latest'
-                sh 'docker push <your-dockerhub-username>/mywebapp:latest'
+                sh 'docker tag mywebapp:latest huzaifkhatib/mywebapp:latest'
+                sh 'docker push huzaifkhatib/mywebapp:latest'
             }
         }
         stage('Deploy') {
