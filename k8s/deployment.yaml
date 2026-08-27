@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mywebapp
-        image: <your-dockerhub-username>/mywebapp:latest
+        image: huzaifkhatib/mywebapp:latest
         ports:
         - containerPort: 5000
 ---
