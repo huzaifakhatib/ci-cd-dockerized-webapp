@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                sh 'docker build -t mywebapp:latest ./docker'
+            }
+        }
+        stage('Push') {
+            steps {
+                sh 'docker tag mywebapp:latest <your-dockerhub-username>/mywebapp:latest'
+                sh 'docker push <your-dockerhub-username>/mywebapp:latest'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f k8s/deployment.yaml'
+            }
+        }
+    }
+    post {
+        success {
+            slackSend(channel: '#deployments', message: '✅ Deployment Successful')
+        }
+        failure {
+            slackSend(channel: '#deployments', message: '❌ Deployment Failed')
+        }
+    }
+}
